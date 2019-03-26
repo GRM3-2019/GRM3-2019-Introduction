@@ -107,19 +107,19 @@ ylabel('RMSE')
 
 
 
-RMSE_ode45
-for i = 1:100
-    tspan=[0 i];
-    
-    Diff_ode45_an=Cst-Fcheck(y(:,1),y(:,2),r,c,d,e);
-    RMSE_ode45(i)=(sum((Diff_Num_An).^2)/length(T_store)).^0.5;
-end
+% RMSE_ode45
+% for i = 1:100
+%     tspan=[0 i];
+%     
+%     Diff_ode45_an=Cst-Fcheck(y(:,1),y(:,2),r,c,d,e);
+%     RMSE_ode45(i)=(sum((Diff_Num_An).^2)/length(T_store)).^0.5;
+% end
 
-%odefun = @(t,y) [ry(1)-cy(2)*y(1);-dy(2)+ey(1)*y(2)];
+odefun = @(t,y) [ry(1)-cy(2)*y(1);-dy(2)+ey(1)*y(2)];
 
-%tspan=[0 100];
-% y0=[N_ini; W_ini];
-% [t,y]=ode45(@(t,y) odefun(t,y,r,c,d,e),tspan,y0);
+tspan=[0 100];
+y0=[N_ini; W_ini];
+[t,y]=ode45(@(t,y) odefun(t,y,r,c,d,e),tspan,y0);
 
 figure;
 plot(t,y(:,1));
