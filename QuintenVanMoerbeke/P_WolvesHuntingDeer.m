@@ -124,11 +124,13 @@ end
 figure(2);
 subplot(2,1,1)
 plot(steps,RMSE);
+title('RMSE versus time step')
 xlabel('Time step')
 ylabel('RMSE')
 
 subplot(2,1,2)
 plot(steps,calcTime)
+title('Time step versus calculation time')
 xlabel('Time step')
 ylabel('Calculation time')
 
