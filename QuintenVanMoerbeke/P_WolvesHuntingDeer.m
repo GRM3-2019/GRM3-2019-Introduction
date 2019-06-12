@@ -149,7 +149,7 @@ W_ini=50;
 tspan=[0 100];
 y0=[N_ini; W_ini];
 options = odeset('RelTol',1e-3,'AbsTol',1e-4);
-[t,y]=ode45(@(t,y) odefun(t,y,r,c,d,e),tspan,y0);
+[t,y]=ode45(@(t,y) odefun(t,y,r,c,d,e),tspan,y0,options);
 
 figure(3);
 subplot(2,1,1)
