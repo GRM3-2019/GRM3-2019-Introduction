@@ -1,0 +1,51 @@
+%% NAYA TO THE RESCUE- predator pray model, numerical way
+tic
+c=0.01;
+d=0.24;
+e=0.005;
+Nini=100;
+Wini=25;
+r=0.48;
+N_store=[];
+T_store=[];
+W_store=[];
+time=0;
+N=Nini;
+W=Wini;
+iter=0;
+dt=0.001;
+
+while time<100
+    iter= iter+1;
+    time=time+dt;
+    dN=r.*N-c.*W.*N;
+    dW=-d.*W+e.*N.*W;
+    N=N+dN*dt;
+    W=W+dW*dt;
+    N_store(iter)=N;
+    T_store(iter)=time; %concatination, extend array to save the solutions
+    W_store(iter)=W;
+end
+toc
+timeVal=[]
+timeVal(1)=toc
+
+%% ODE45
+tic
+c=0.01;
+d=0.24;
+e=0.005;
+r=0.48;
+tspan=T_store;
+y0=[100,25];
+[t2,y]=ode45(@(t,y)PP_ode45(t,y,r,c,e,d),tspan,y0); 
+plot(t2,y)
+toc
+
+timerVal(2)=toc
+RMSE2=zeros(1,numel(T_store));
+NandW=[N_store ; W_store];
+H=y-pinv(NandW);
+R2=sqrt(mean(H.^2));
+
+plot(timerVal,R2)

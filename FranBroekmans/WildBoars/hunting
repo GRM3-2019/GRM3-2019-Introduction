@@ -1,0 +1,16 @@
+%% Implement hunting
+dt=0.0001;
+c=0.01;
+d=0.24;
+e=0.005;
+r=0.48;
+tspan=T_store;
+alpha=0.5;
+y0=[100,25];
+[t3,y3]=ode45(@(t,y)PP_ode45_H(t,y,r,c,e,d,alpha),tspan,y0); 
+plot(t3,y3)
+
+figure;
+plot(y3(:,1), y3(:,2),'k')
+xlabel('N');
+ylabel('W');
