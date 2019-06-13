@@ -53,6 +53,7 @@ while (res > 1)
     C(nx/2,ny/2) = H;
     C = C + dC.*dt;
     
+    %Boundary conditions
     C(:,1)=C(:,2);
     C(:,end)=C(:,end-1);
     C(1,:)=C(2,:);
@@ -61,8 +62,8 @@ while (res > 1)
     %Plot
     figure(1);
     %surf(C);
-    surface(XG,YG,C);shading interp;axis tight;colorbar;axis equal
-     caxis([0,5])
+    mesh(XG,YG,C);shading interp;axis tight;colorbar;axis equal
+    caxis([0,5])
 %     xlim([0 100])
 %     ylim([0 100])
 %     zlim([-15 15])
@@ -79,10 +80,10 @@ est = sum(sum((C(35,35:65) + C(35:65,35) + C(65,35:65) + C(35:65,65))))/(4*16);
 display(est);
 % Retrieve > 1
 [row, col, v] = find(C>1);
-coord(:,1) = row; % correct for center to get norm
-coord(:,2) = col;
+coord(:,1) = row - nx/2; % correct for center to get norm
+coord(:,2) = col - ny/2;
 for i = 1:length(coord)
-    distance(i) = norm(coord(i)-[Lx/2 Ly /2]);
+    distance(i) = sqrt(coord(i,1)^2 + coord(i,2)^2);
 end
 display(max(distance));
 fprintf('Done')
